@@ -1,0 +1,134 @@
+{
+  "name": "Alberto Arenal Fernández",
+  "title": "Desarrollador Backend Java",
+  "subtitle": "Backend Java especializado en Spring Boot, JPA y arquitecturas empresariales con Docker.",
+  "avatar": {
+    "alt": "Foto de perfil de Alberto",
+    "width": 240,
+    "height": 240,
+    "sources": [
+      { "type": "image/avif", "srcSet": "/avatar-1x.avif 1x, /avatar-2x.avif 2x" },
+      { "type": "image/webp", "srcSet": "/avatar-1x.webp 1x, /avatar-2x.webp 2x" }
+    ],
+    "fallback": {
+      "src": "/avatar.png",
+      "srcSet": "/avatar-1x.png 1x, /avatar-2x.png 2x"
+    }
+  },
+  "location": "Puente Viesgo, Cantabria",
+  "availability": "Disponible inmediatamente · Movilidad geográfica completa",
+  "social": {
+    "github": "https://github.com/albertoarenaldev",
+    "linkedin": null,
+    "email": "alberto.arenal.dev@gmail.com",
+    "phone": "[REDACTED]",
+    "website": null
+  },
+  "about": [
+    "Desarrollador Backend con formación en DAM y un bootcamp especializado en aplicaciones empresariales con Java (Spring Boot, JPA, REST). Experiencia práctica en arquitectura MVC, testing con JUnit/Mockito y contenerización con Docker.",
+    "Manejo de Linux a nivel avanzado, SQL relacional (MySQL/PostgreSQL/H2) y herramientas de IA aplicadas a productividad en el desarrollo. Motivado por el código limpio, el aprendizaje continuo y el trabajo en equipos ágiles con Scrum. Idiomas: español nativo e inglés B2 certificado."
+  ],
+  "stats": {
+    "yearsExperience": 1,
+    "projectsCompleted": 6,
+    "technologies": 18,
+    "happyClients": 0
+  },
+  "skills": [
+    {
+      "category": "Backend",
+      "items": [
+        { "name": "Java", "icon": "SiJava" },
+        { "name": "Spring Boot", "icon": "SiSpring" },
+        { "name": "Spring MVC", "icon": "SiSpring" },
+        { "name": "JPA / Hibernate", "icon": "SiSpring" },
+        { "name": "Jakarta EE (JEE)", "icon": "SiJava" },
+        { "name": "APIs REST", "icon": "SiFastapi" }
+      ]
+    },
+    {
+      "category": "Bases de datos",
+      "items": [
+        { "name": "MySQL", "icon": "SiMysql" },
+        { "name": "PostgreSQL", "icon": "SiPostgresql" },
+        { "name": "H2", "icon": "SiPostgresql" },
+        { "name": "MongoDB", "icon": "SiMongodb" },
+        { "name": "SQL", "icon": "SiPostgresql" }
+      ]
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        { "name": "Angular", "icon": "SiAngular" },
+        { "name": "HTML5", "icon": "SiHtml5" },
+        { "name": "CSS3", "icon": "SiHtml5" }
+      ]
+    },
+    {
+      "category": "Testing",
+      "items": [
+        { "name": "JUnit 5", "icon": "SiJava" },
+        { "name": "Mockito", "icon": "SiJava" },
+        { "name": "Postman", "icon": "SiPostman" }
+      ]
+    },
+    {
+      "category": "DevOps & Sistemas",
+      "items": [
+        { "name": "Git (GitHub/GitLab)", "icon": "SiGit" },
+        { "name": "Maven", "icon": "SiApachemaven" },
+        { "name": "Docker", "icon": "SiDocker" },
+        { "name": "Linux (Debian/Ubuntu)", "icon": "SiUbuntu" },
+        { "name": "Windows", "icon": "SiWindows" }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Bootcamp Java — Aplicaciones Empresariales Web",
+      "company": "Consulting Informático Cantabria S.L.",
+      "period": "Jul – Sep 2025 · 235 h",
+      "description": "Formación intensiva en Spring MVC, Spring Boot, JPA y JEE — desarrollo, testing y despliegue con buenas prácticas y Scrum.",
+      "tech": ["Java", "Spring Boot", "Spring MVC", "JPA", "JEE", "JUnit", "Mockito", "Docker"]
+    },
+    {
+      "role": "Técnico Superior en DAM",
+      "company": "IES Augusto González de Linares",
+      "period": "2022 – 2025",
+      "description": "Programación con Java, SQL y desarrollo web full-stack. Metodologías ágiles (Scrum) y trabajo en equipo.",
+      "tech": ["Java", "SQL", "HTML5", "CSS3", "Scrum"]
+    },
+    {
+      "role": "Certificado de nivel 2 — Sistemas Microinformáticos",
+      "company": "Centro de Formación Piélagos",
+      "period": "610 h",
+      "description": "Administración de sistemas, redes y soporte técnico.",
+      "tech": ["Linux", "Windows", "Redes", "Soporte"]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Aplicación Web — Gestión de Eventos (Spring Boot)",
+      "description": "Proyecto final del Bootcamp. API REST completa (CRUD, validaciones, excepciones) con arquitectura MVC, JPA y contenerización con Docker. Tests con JUnit 5 y Mockito.",
+      "tech": ["Java", "Spring Boot", "JPA", "H2", "MySQL", "Docker", "JUnit 5", "Mockito"],
+      "github": "https://github.com/albertoarenaldev/gestion-eventos",
+      "demo": "",
+      "image": "",
+      "featured": true,
+      "year": 2025
+    },
+    {
+      "id": 2,
+      "title": "Sistema de Gestión para Taller Mecánico",
+      "description": "Proyecto final de DAM. Aplicación de escritorio Java + Swing + MySQL para gestión de clientes, vehículos, reparaciones y facturación. Arquitectura multicapa con JDBC.",
+      "tech": ["Java", "Swing", "MySQL", "JDBC"],
+      "github": "https://github.com/albertoarenaldev/taller-mecanico",
+      "demo": "",
+      "image": "",
+      "featured": true,
+      "year": 2025
+    }
+  ],
+  "github": "albertoarenaldev"
+}
