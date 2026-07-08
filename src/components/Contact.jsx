@@ -1,9 +1,17 @@
 import { FiGithub, FiLinkedin, FiMail, FiGlobe, FiPhone, FiArrowUpRight } from 'react-icons/fi';
 import { useReveal } from '../hooks/useReveal';
 import CopyButton from './CopyButton';
-// Note: the previous big primary CTA button ("Escríbeme") was removed because it
-// duplicated the Email detail-card below (both are mailto:). The detail-cards are now
-// the single canonical contact zone; CTA emphasis lives in the Hero direct rows.
+
+// Channel labels for the indirect social pills.
+const PILL_LABEL = {
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  website: 'Sitio web',
+};
+
+// Order matters: email is the primary direct channel.
+const DIRECT_KEYS = ['email', 'phone'];
+const INDIRECT_KEYS = ['github', 'linkedin', 'website'];
 
 const ICONS = {
   github: FiGithub,
@@ -11,14 +19,6 @@ const ICONS = {
   email: FiMail,
   phone: FiPhone,
   website: FiGlobe,
-};
-
-const LABELS = {
-  github: 'GitHub',
-  linkedin: 'LinkedIn',
-  email: 'Email',
-  phone: 'Teléfono',
-  website: 'Web',
 };
 
 /** E.164 (+CCxxxxxxxxx) -> "+CC NNN NN NN NN" */
@@ -30,24 +30,19 @@ function formatPhone(value) {
   return value;
 }
 
-function displayFor(key, url) {
-  if (key === 'phone') return formatPhone(url);
-  if (key === 'email') return url;
-  return LABELS[key] ?? key;
+function hrefFor(key, url) {
+  if (key === 'email') return url.startsWith('mailto:') ? url : `mailto:${url}`;
+  if (key === 'phone') return url.startsWith('tel:') ? url : `tel:${url}`;
+  return url;
 }
-
-const HREF_KINDS = {
-  email: (url) => (url.startsWith('mailto:') ? url : `mailto:${url}`),
-  phone: (url) => (url.startsWith('tel:') ? url : `tel:${url}`),
-};
-
-const PROTOCOL_KEYS = ['email', 'phone'];
 
 export default function Contact({ data }) {
   const ref = useReveal();
   const social = data.social || {};
-  const hasDirect = !!(social.email || social.phone);
-  const hasIndirect = ['github', 'linkedin', 'website'].some((k) => social[k]);
+  const directKeys = DIRECT_KEYS.filter((k) => social[k]);
+  const indirectKeys = INDIRECT_KEYS.filter((k) => social[k]);
+  const hasDirect = directKeys.length > 0;
+  const hasIndirect = indirectKeys.length > 0;
 
   return (
     <section id="contact" className="section section-contact" ref={ref}>
@@ -62,28 +57,24 @@ export default function Contact({ data }) {
             Estoy disponible para trabajar en cosas interesantes.
           </p>
 
-          {/* Direct contact — address visible, selectable, with copy button */}
+          {/* Direct channels — compact rows with copy button (same UX as Hero) */}
           {hasDirect && (
-            <div className="contact-details">
-              {PROTOCOL_KEYS.map((key) => {
+            <div className="direct-contact contact-channels">
+              {directKeys.map((key) => {
                 const url = social[key];
-                if (!url) return null;
                 const Icon = ICONS[key];
-                const value = displayFor(key, url);
-                const href = HREF_KINDS[key](url);
+                const value = key === 'phone' ? formatPhone(url) : url;
+                const href = hrefFor(key, url);
+                const ariaCopy =
+                  key === 'phone'
+                    ? `Llamar al ${value}`
+                    : `Enviar email a ${value}`;
                 return (
-                  <div key={key} className="detail-card">
-                    <div className="detail-row detail-row-head">
-                      <span className="detail-icon" aria-hidden="true">
-                        <Icon size={16} />
-                      </span>
-                      <span className="detail-label">{LABELS[key]}</span>
-                    </div>
-                    <a
-                      href={href}
-                      className="detail-value mono"
-                      aria-label={key === 'phone' ? `Llamar al ${value}` : `Enviar email a ${value}`}
-                    >
+                  <div key={key} className="direct-row">
+                    <span className="direct-icon" aria-hidden="true">
+                      <Icon size={14} />
+                    </span>
+                    <a href={href} className="direct-value mono" aria-label={ariaCopy}>
                       {value}
                     </a>
                     <CopyButton value={url} label="Copiar" />
@@ -96,26 +87,25 @@ export default function Contact({ data }) {
           {/* Indirect social channels — pill style */}
           {hasIndirect && (
             <ul className="contact-socials">
-              {Object.entries(social)
-                .filter(([key, url]) => url && !PROTOCOL_KEYS.includes(key))
-                .map(([key, url]) => {
-                  const Icon = ICONS[key] ?? FiGlobe;
-                  return (
-                    <li key={key}>
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-pill"
-                        aria-label={LABELS[key] ?? key}
-                      >
-                        <Icon size={18} aria-hidden="true" />
-                        <span>{LABELS[key] ?? key}</span>
-                        <FiArrowUpRight size={14} aria-hidden="true" />
-                      </a>
-                    </li>
-                  );
-                })}
+              {indirectKeys.map((key) => {
+                const url = social[key];
+                const Icon = ICONS[key] ?? FiGlobe;
+                return (
+                  <li key={key}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-pill"
+                      aria-label={PILL_LABEL[key] ?? key}
+                    >
+                      <Icon size={18} aria-hidden="true" />
+                      <span>{PILL_LABEL[key] ?? key}</span>
+                      <FiArrowUpRight size={14} aria-hidden="true" />
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>

@@ -114,7 +114,7 @@ export default function Hero({ data }) {
         )}
 
         {data.social && (data.social.email || data.social.phone) && (
-          <div className="hero-direct-contact">
+          <div className="direct-contact">
             {data.social.email && (
               <div className="direct-row">
                 <a href={`mailto:${data.social.email}`} className="direct-value mono">
