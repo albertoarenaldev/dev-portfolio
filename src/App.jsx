@@ -23,7 +23,7 @@ export default function App() {
         <span className="blob b3" />
       </div>
 
-      <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} />
+      <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} />
 
       <main>
         <Hero data={data} />
