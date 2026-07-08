@@ -126,8 +126,19 @@
       "github": "https://github.com/albertoarenaldev/taller-mecanico",
       "demo": "",
       "image": "",
-      "featured": true,
+      "featured": false,
       "year": 2025
+    },
+    {
+      "id": 3,
+      "title": "Auth Service — JWT con rotación de refresh tokens",
+      "description": "Microservicio de autenticación con JWT, refresh tokens rotativos con detección de reuso y CI en verde (44 tests).",
+      "tech": ["Java 21", "Spring Boot", "Spring Security", "JPA", "JJWT", "H2", "MySQL", "JUnit 5", "Mockito", "GitHub Actions"],
+      "github": "https://github.com/albertoarenaldev/auth-service",
+      "demo": "",
+      "image": "",
+      "featured": true,
+      "year": 2026
     }
   ],
   "github": "albertoarenaldev"
