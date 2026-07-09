@@ -1,16 +1,23 @@
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { useClipboard } from '../hooks/useClipboard';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 /**
  * Inline button that copies `value` to the clipboard with a brief "Copiado" feedback.
  */
 export default function CopyButton({ value, label = 'Copiar' }) {
   const { copied, copy } = useClipboard();
+  const { addLog } = useLiveLogs();
+
+  const handleCopy = () => {
+    copy(value);
+    addLog({ level: 'INFO', message: `Action: CopyContactData → "${value.slice(0, 30)}${value.length > 30 ? '...' : ''}" [OK]` });
+  };
 
   return (
     <button
       type="button"
-      onClick={() => copy(value)}
+      onClick={handleCopy}
       className={`copy-btn ${copied ? 'is-copied' : ''}`}
       aria-label={`Copiar ${value}`}
     >

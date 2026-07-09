@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import data from './projects.json';
 import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
@@ -9,34 +10,45 @@ import Experience from './components/Experience';
 import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import BootSequence from './components/BootSequence';
+import LiveLogs from './components/LiveLogs';
 import { useTheme } from './hooks/useTheme';
+import { LiveLogsProvider } from './hooks/useLiveLogs';
 import './App.css';
 
 export default function App() {
   const [theme, toggleTheme] = useTheme();
+  const [bootDone, setBootDone] = useState(false);
+  const handleBootDone = useCallback(() => setBootDone(true), []);
 
   return (
     <ErrorBoundary>
-      <div className="app-bg" aria-hidden="true">
-      </div>
+      <LiveLogsProvider>
+        {!bootDone && <BootSequence onComplete={handleBootDone} />}
 
-      <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} />
+        <div className="app-bg" aria-hidden="true">
+        </div>
 
-      <main>
-        <Hero data={data} />
-        <About data={data} />
-        <Skills skills={data.skills} />
-        <Projects projects={data.projects} />
-        <Experience items={data.experience} />
-        <GitHubStats
-          username={data.github}
-          fallbackProfile={data.githubProfileFallback}
-          fallbackRepos={data.githubTopRepos}
-        />
-        <Contact data={data} />
-      </main>
+        <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} />
 
-      <Footer name={data.name} social={data.social} />
+        <main>
+          <Hero data={data} />
+          <About data={data} />
+          <Skills skills={data.skills} />
+          <Projects projects={data.projects} />
+          <Experience items={data.experience} />
+          <GitHubStats
+            username={data.github}
+            fallbackProfile={data.githubProfileFallback}
+            fallbackRepos={data.githubTopRepos}
+          />
+          <Contact data={data} />
+        </main>
+
+        <Footer name={data.name} social={data.social} />
+
+        <LiveLogs />
+      </LiveLogsProvider>
     </ErrorBoundary>
   );
 }

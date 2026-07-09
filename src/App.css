@@ -1,4 +1,232 @@
 /* ============================================================
+   Boot sequence overlay
+   ============================================================ */
+
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07070d;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.boot-overlay.boot-explode {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.boot-terminal {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 1rem;
+}
+
+.boot-line {
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  color: #a1a1aa;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
+  animation: bootFadeIn 0.15s ease-out;
+}
+
+.boot-line:last-child {
+  color: #10b981;
+  font-weight: 600;
+}
+
+@keyframes bootFadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Live Backend Logs panel
+   ============================================================ */
+
+.live-logs {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 200;
+  width: 380px;
+  max-width: calc(100vw - 2rem);
+  max-height: 280px;
+  border-radius: 12px;
+  background: rgba(10, 10, 16, 0.92);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.live-logs-collapsed {
+  max-height: 44px;
+}
+
+.live-logs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+.live-logs-header-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: color 0.2s;
+}
+
+.live-logs-header-btn:hover { color: var(--text); }
+
+.live-logs-title { font-weight: 600; }
+
+.live-logs-count {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.live-logs-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.live-logs-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  transition: color 0.2s, background 0.2s;
+}
+
+.live-logs-actions button:hover {
+  color: var(--text);
+  background: var(--bg-card-hover);
+}
+
+.live-logs-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+}
+
+.live-logs-empty {
+  color: var(--text-subtle);
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.live-logs-prompt {
+  color: var(--accent);
+  margin-right: 0.4rem;
+}
+
+.live-log-entry {
+  display: flex;
+  gap: 0.4rem;
+  line-height: 1.5;
+  animation: bootFadeIn 0.2s ease-out;
+}
+
+.live-log-ts {
+  color: var(--text-subtle);
+  flex-shrink: 0;
+}
+
+.live-log-level {
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.live-log-msg {
+  color: var(--text-muted);
+}
+
+.live-logs-badge {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  background: rgba(10, 10, 16, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.live-logs-badge:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.live-logs-badge span {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.6rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  min-width: 16px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .live-logs {
+    width: auto;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    max-height: 200px;
+  }
+  .boot-overlay {
+    padding: 1rem;
+  }
+}
+
+/* ============================================================
    Layout primitives
    ============================================================ */
 

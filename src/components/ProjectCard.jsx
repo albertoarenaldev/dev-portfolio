@@ -1,4 +1,5 @@
 import { FiExternalLink, FiGithub, FiStar, FiGitBranch } from 'react-icons/fi';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 export default function ProjectCard({ project, compact = false }) {
   const {
@@ -11,10 +12,15 @@ export default function ProjectCard({ project, compact = false }) {
     forks,
     image,
     featured,
+    id,
   } = project;
+  const { addLog } = useLiveLogs();
 
   return (
-    <article className={`project-card ${compact ? 'compact' : ''}`}>
+    <article
+      className={`project-card ${compact ? 'compact' : ''}`}
+      onMouseEnter={() => addLog({ level: 'DEBUG', message: `GET /api/v1/projects/${id || title?.slice(0, 12)} → 200 OK` })}
+    >
       {image && (
         <div className="project-card-image">
           <img src={image} alt={title} loading="lazy" />

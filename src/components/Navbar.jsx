@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { fetchUserProfile } from '../api/github';
 import { getCached, setCached } from '../hooks/useGitHubCache';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 const PROFILE_CACHE_KEY = 'github:profile';
 
@@ -20,6 +21,8 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
   const [open, setOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(null);
   const activeId = useScrollSpy(SECTIONS.map((s) => s.id));
+  const { addLog } = useLiveLogs();
+  const prevActiveRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -30,6 +33,15 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
 
   // Close mobile menu after nav
   useEffect(() => { setOpen(false); }, [activeId]);
+
+  // Log section changes as API-style navigation events
+  useEffect(() => {
+    if (activeId && activeId !== prevActiveRef.current) {
+      prevActiveRef.current = activeId;
+      const label = SECTIONS.find((s) => s.id === activeId)?.label || activeId;
+      addLog({ level: 'INFO', message: `GET /api/v1/${activeId} → 200 OK ("${label}")` });
+    }
+  }, [activeId, addLog]);
 
   // Lazy-fetch GitHub avatar once, shared via cache with GitHubStats section.
   // Falls back silently to the gradient square on failure/offline.

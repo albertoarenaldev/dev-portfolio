@@ -8,6 +8,7 @@ import {
 } from '../api/github';
 import { getCached, setCached } from '../hooks/useGitHubCache';
 import { useReveal } from '../hooks/useReveal';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 const CACHE_KEY = 'github:profile';
 
@@ -17,6 +18,7 @@ export default function GitHubStats({ username, fallbackProfile, fallbackRepos }
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const { addLog } = useLiveLogs();
 
   useEffect(() => {
     let cancelled = false;
@@ -45,10 +47,12 @@ export default function GitHubStats({ username, fallbackProfile, fallbackRepos }
         setProfile(p);
         setRepos(topRepos);
         setCached(`${CACHE_KEY}:${username}`, { profile: p, repos: topRepos });
+        addLog({ level: 'SUCCESS', message: `GitHub API: fetched @${username} profile + ${topRepos.length} repos` });
       } catch {
         if (!cancelled) {
           if (fallbackProfile) setProfile(fallbackProfile);
           if (fallbackRepos && fallbackRepos.length) setRepos(fallbackRepos);
+          addLog({ level: 'WARN', message: `GitHub API unavailable — serving cached fallback data` });
         }
       } finally {
         if (!cancelled) setLoading(false);

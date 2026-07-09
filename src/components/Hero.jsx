@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { FiArrowRight, FiMapPin, FiCircle } from 'react-icons/fi';
 import { useReveal } from '../hooks/useReveal';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 import ResponsiveAvatar from './ResponsiveAvatar';
 import SocialIcons from './SocialIcons';
 import CopyButton from './CopyButton';
@@ -12,6 +14,12 @@ const DIRECT_KEYS = ['email', 'phone'];
 export default function Hero({ data }) {
   const reveal = useReveal(0.05);
   const initial = (data.name || 'T').trim()[0] || 'T';
+  const { addLog } = useLiveLogs();
+
+  useEffect(() => {
+    addLog({ level: 'SUCCESS', message: 'PortfolioApplication started successfully — serving content' });
+    addLog({ level: 'INFO', message: `Active profile: ${data.github} (${data.stats?.technologies || 0} technologies loaded)` });
+  }, [addLog, data.github, data.stats?.technologies]);
 
   // Icon strip: only profile/indirect channels (github/linkedin/website).
   // Email & phone live in the direct contact rows below — no duplicate icons.
