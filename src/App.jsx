@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import data from './projects.json';
 import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
@@ -12,6 +12,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BootSequence from './components/BootSequence';
 import LiveLogs from './components/LiveLogs';
+import TerminalMode from './components/TerminalMode';
 import { useTheme } from './hooks/useTheme';
 import { LiveLogsProvider } from './hooks/useLiveLogs';
 import './App.css';
@@ -19,7 +20,22 @@ import './App.css';
 export default function App() {
   const [theme, toggleTheme] = useTheme();
   const [bootDone, setBootDone] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const handleBootDone = useCallback(() => setBootDone(true), []);
+  const handleOpenTerminal = useCallback(() => setTerminalOpen(true), []);
+  const handleCloseTerminal = useCallback(() => setTerminalOpen(false), []);
+
+  // Global keyboard shortcut: Ctrl+` toggles terminal
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.ctrlKey && e.key === '`') {
+        e.preventDefault();
+        setTerminalOpen((v) => !v);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -29,7 +45,7 @@ export default function App() {
         <div className="app-bg" aria-hidden="true">
         </div>
 
-        <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} />
+        <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} onOpenTerminal={handleOpenTerminal} />
 
         <main>
           <Hero data={data} />
@@ -48,6 +64,10 @@ export default function App() {
         <Footer name={data.name} social={data.social} />
 
         <LiveLogs />
+
+        {terminalOpen && (
+          <TerminalMode data={data} onClose={handleCloseTerminal} />
+        )}
       </LiveLogsProvider>
     </ErrorBoundary>
   );

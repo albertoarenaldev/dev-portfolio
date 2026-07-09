@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
+import { FiSun, FiMoon, FiMenu, FiX, FiTerminal } from 'react-icons/fi';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { fetchUserProfile } from '../api/github';
 import { getCached, setCached } from '../hooks/useGitHubCache';
@@ -16,7 +16,7 @@ const SECTIONS = [
   { id: 'contact',    label: 'Contacto' },
 ];
 
-export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
+export default function Navbar({ name, theme, onToggleTheme, githubUsername, onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(null);
@@ -96,6 +96,16 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
         </nav>
 
         <div className="navbar-actions">
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={onOpenTerminal}
+            aria-label="Abrir terminal"
+            title="Terminal (Ctrl+~)"
+          >
+            <FiTerminal />
+          </button>
+
           <button
             type="button"
             className="icon-btn"
