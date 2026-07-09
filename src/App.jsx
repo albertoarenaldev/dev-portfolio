@@ -18,9 +18,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <div className="app-bg" aria-hidden="true">
-        <span className="blob b1" />
-        <span className="blob b2" />
-        <span className="blob b3" />
       </div>
 
       <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} />
@@ -31,7 +28,11 @@ export default function App() {
         <Skills skills={data.skills} />
         <Projects projects={data.projects} />
         <Experience items={data.experience} />
-        <GitHubStats username={data.github} />
+        <GitHubStats
+          username={data.github}
+          fallbackProfile={data.githubProfileFallback}
+          fallbackRepos={data.githubTopRepos}
+        />
         <Contact data={data} />
       </main>
 

@@ -28,7 +28,7 @@
 
 .eyebrow {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--accent);
@@ -254,8 +254,8 @@
 }
 
 .hero-avatar {
-  width: 240px;
-  height: 240px;
+  width: clamp(180px, 30vw, 260px);
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -325,23 +325,37 @@
 .hero-role {
   color: var(--accent-hi);
   font-weight: 600;
-  min-height: 1.2em;
   display: inline-block;
   text-align: left;
 }
 
-.caret {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: var(--accent);
-  margin-left: 2px;
-  animation: blink 1s steps(2, end) infinite;
-  vertical-align: text-bottom;
+/* ============================================================
+   Hero stack badges
+   ============================================================ */
+
+.hero-stack-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+.stack-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.stack-badge:hover {
+  border-color: var(--accent-hi);
+  transform: translateY(-1px);
 }
 
 .hero-meta {
@@ -810,7 +824,7 @@
 
 .timeline-tech li {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   padding: 0.25rem 0.6rem;
   border-radius: 6px;
   background: var(--bg-card-hover);
@@ -1051,7 +1065,7 @@
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .revealed {
@@ -1265,8 +1279,21 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .github-grid { grid-template-columns: 1fr; }
+  .section-header { margin-bottom: 2rem; }
+  .section-header h2 { font-size: 1.7rem; }
+  .contact-card { padding: 2rem 1.2rem; }
+  .hero-title { font-size: clamp(2rem, 7vw, 3rem); }
+  .filter-chips { gap: 0.3rem; }
+  .filter-chip { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+  .timeline-content header { flex-direction: column; align-items: flex-start; }
+}
+
 @media (max-width: 600px) {
   .section { padding: 4rem 0; }
+  .section-contact { padding-bottom: 5rem; }
   .hero { padding-top: 6rem; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .projects-grid { grid-template-columns: 1fr; }

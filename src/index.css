@@ -199,6 +199,11 @@ img {
   -webkit-backdrop-filter: blur(12px);
 }
 
+.surface-elevated {
+  background: color-mix(in srgb, var(--bg-elevated) 94%, var(--accent) 6%);
+  border: 1px solid var(--border);
+}
+
 .divider {
   height: 1px;
   background: linear-gradient(

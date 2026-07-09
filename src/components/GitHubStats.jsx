@@ -11,7 +11,7 @@ import { useReveal } from '../hooks/useReveal';
 
 const CACHE_KEY = 'github:profile';
 
-export default function GitHubStats({ username }) {
+export default function GitHubStats({ username, fallbackProfile, fallbackRepos }) {
   const ref = useReveal();
   const [profile, setProfile] = useState(null);
   const [repos, setRepos] = useState([]);
@@ -46,7 +46,10 @@ export default function GitHubStats({ username }) {
         setRepos(topRepos);
         setCached(`${CACHE_KEY}:${username}`, { profile: p, repos: topRepos });
       } catch {
-        if (!cancelled) setFailed(true);
+        if (!cancelled) {
+          if (fallbackProfile) setProfile(fallbackProfile);
+          if (fallbackRepos && fallbackRepos.length) setRepos(fallbackRepos);
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -68,7 +71,7 @@ export default function GitHubStats({ username }) {
 
         <div className="github-grid">
           {/* Profile card */}
-          <div className="github-profile glass">
+          <div className="github-profile surface-elevated">
             <div className="github-profile-head">
               {profile && (
                 <img
@@ -122,12 +125,12 @@ export default function GitHubStats({ username }) {
             </p>
 
             {repos.length === 0 && !loading && (
-              <p className="empty-state glass">No se encontraron repositorios.</p>
+              <p className="empty-state surface-elevated">No se encontraron repositorios.</p>
             )}
 
             <ul className="github-repos-list">
               {repos.map((r) => (
-                <li key={r.id} className="github-repo glass">
+                <li key={r.id} className="github-repo surface-elevated">
                   <header>
                     <a
                       href={r.github}
