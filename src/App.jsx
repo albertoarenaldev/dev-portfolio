@@ -43,6 +43,9 @@ export default function App() {
         {!bootDone && <BootSequence onComplete={handleBootDone} />}
 
         <div className="app-bg" aria-hidden="true">
+          <span className="blob b1" />
+          <span className="blob b2" />
+          <span className="blob b3" />
         </div>
 
         <Navbar name={data.name} theme={theme} onToggleTheme={toggleTheme} githubUsername={data.github} onOpenTerminal={handleOpenTerminal} />
