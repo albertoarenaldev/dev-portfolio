@@ -182,10 +182,17 @@ img {
 
 .gradient-text {
   background: var(--gradient-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  animation: shineGradient 6s linear infinite;
+}
+
+@keyframes shineGradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 .gradient-bg {
@@ -195,8 +202,8 @@ img {
 .glass {
   background: var(--bg-card);
   border: 1px solid var(--bg-glass-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
 
 .surface-elevated {
@@ -238,6 +245,17 @@ img {
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.app-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
 }
 
 .app-bg .blob {

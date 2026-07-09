@@ -71,7 +71,30 @@
   background: var(--gradient);
   color: #fff;
   box-shadow: var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
 }
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  transition: none;
+}
+
+.btn-primary:hover::after {
+  animation: shineSweep 0.6s ease-out forwards;
+}
+
+@keyframes shineSweep {
+  100% { left: 200%; }
+}
+
 .btn-primary:hover { box-shadow: 0 0 60px rgba(139, 92, 246, 0.5); }
 
 .btn-ghost {
@@ -250,7 +273,13 @@
 
 .availability .dot {
   color: #10b981;
-  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.5));
+  animation: activePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes activePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .hero-avatar {
@@ -269,12 +298,17 @@
 .hero-avatar::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -4px;
   border-radius: 50%;
-  background: var(--gradient);
+  background: conic-gradient(from 0deg, var(--accent), var(--accent-cyan), var(--accent-pink), var(--accent));
   z-index: -1;
   filter: blur(14px);
-  opacity: 0.6;
+  opacity: 0.7;
+  animation: spinAura 8s linear infinite;
+}
+
+@keyframes spinAura {
+  100% { transform: rotate(360deg); }
 }
 
 .hero-avatar picture { display: contents; }
@@ -598,14 +632,16 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.25s, border-color 0.25s, background 0.25s;
-  backdrop-filter: blur(10px);
+  transition: transform 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.01);
   border-color: var(--accent);
   background: var(--bg-card-hover);
+  box-shadow: 0 15px 35px -10px rgba(139, 92, 246, 0.25);
 }
 
 .project-card-image {
@@ -776,6 +812,13 @@
   background: var(--gradient);
   color: #fff;
   box-shadow: 0 0 0 4px var(--bg), 0 0 20px rgba(139, 92, 246, 0.5);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.2);
+  background: var(--gradient-text);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 25px rgba(34, 211, 238, 0.7);
 }
 
 .timeline-content header {
