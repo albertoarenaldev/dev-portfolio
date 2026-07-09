@@ -1,32 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
-
-const STORAGE_KEY = 'portfolio-theme';
-const DARK = 'dark';
-const LIGHT = 'light';
+import { THEME_STORAGE_KEY, THEME_DARK, THEME_LIGHT, DEFAULT_THEME } from '../themeConfig';
 
 /**
- * Persisted theme controller.
- * Reads saved value from localStorage; falls back to system preference.
+ * Persisted theme controller. Brand default is DARK; explicit user
+ * choice via the navbar toggle wins (stored in localStorage).
  */
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return DARK;
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === LIGHT || stored === DARK) return stored;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? LIGHT : DARK;
+    if (typeof window === 'undefined') return DEFAULT_THEME;
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === THEME_LIGHT || stored === THEME_DARK) return stored;
+    return DEFAULT_THEME;
   });
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     try {
-      localStorage.setItem(STORAGE_KEY, theme);
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch {
       /* storage unavailable */
     }
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((t) => (t === DARK ? LIGHT : DARK));
+    setTheme((t) => (t === THEME_DARK ? THEME_LIGHT : THEME_DARK));
   }, []);
 
   return [theme, toggleTheme];
