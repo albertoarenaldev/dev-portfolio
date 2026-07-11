@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 
+/** Multiplicador de velocidad: 1 = actual, 0.282 = ~1.3s total */
+const SPEED = 0.282;
+
 /** Each line is [text, delayBeforeTypingMs]. */
 const LOG_LINES = [
   ['  .   ____          _            __ _ _', 40],
@@ -58,7 +61,7 @@ export default function BootSequence({ onComplete }) {
     let totalDelay = 0;
 
     LOG_LINES.forEach(([text, delay]) => {
-      totalDelay += delay;
+      totalDelay += delay * SPEED;
       setTimeout(() => {
         if (cancelled) return;
         lines.push(text);
@@ -70,8 +73,8 @@ export default function BootSequence({ onComplete }) {
       }, totalDelay);
     });
 
-    // Total animation time ~ sum of all delays
-    const totalTime = LOG_LINES.reduce((acc, [, d]) => acc + d, 0);
+    // Total animation time with speed factor applied
+    const totalTime = LOG_LINES.reduce((acc, [, d]) => acc + d, 0) * SPEED;
 
     setTimeout(() => {
       if (cancelled) return;
