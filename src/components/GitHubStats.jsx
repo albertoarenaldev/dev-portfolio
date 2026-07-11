@@ -44,9 +44,17 @@ export default function GitHubStats({ username, fallbackProfile, fallbackRepos }
         ]);
         if (cancelled) return;
         const topRepos = r.slice().sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, 6);
+        // Merge fallback descriptions when API returns empty / generic ones
+        const fallbackMap = new Map((fallbackRepos || []).map((fb) => [fb.title, fb.description]));
+        const enrichedRepos = topRepos.map((repo) => {
+          const hasDesc = repo.description && repo.description !== 'Sin descripción';
+          if (hasDesc) return repo;
+          const fbDesc = fallbackMap.get(repo.title);
+          return fbDesc ? { ...repo, description: fbDesc } : repo;
+        });
         setProfile(p);
-        setRepos(topRepos);
-        setCached(`${CACHE_KEY}:${username}`, { profile: p, repos: topRepos });
+        setRepos(enrichedRepos);
+        setCached(`${CACHE_KEY}:${username}`, { profile: p, repos: enrichedRepos });
         addLog({ level: 'SUCCESS', message: `GitHub API: fetched @${username} profile + ${topRepos.length} repos` });
       } catch {
         if (!cancelled) {
@@ -60,7 +68,7 @@ export default function GitHubStats({ username, fallbackProfile, fallbackRepos }
     })();
 
     return () => { cancelled = true; };
-  }, [username]);
+  }, [username, fallbackRepos]);
 
   // Silently render nothing useful if it failed — section just collapses
   if (failed) return null;
