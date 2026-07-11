@@ -30,7 +30,7 @@
   ],
   "stats": {
     "yearsExperience": 1,
-    "projectsCompleted": 6,
+    "projectsCompleted": 2,
     "technologies": 18,
     "happyClients": 0
   },
@@ -109,36 +109,25 @@
   "projects": [
     {
       "id": 1,
-      "title": "Aplicación Web — Gestión de Eventos (Spring Boot)",
-      "description": "Proyecto final del Bootcamp. API REST completa (CRUD, validaciones, excepciones) con arquitectura MVC, JPA y contenerización con Docker. Tests con JUnit 5 y Mockito.",
-      "tech": ["Java", "Spring Boot", "JPA", "H2", "MySQL", "Docker", "JUnit 5", "Mockito"],
-      "github": "https://github.com/albertoarenaldev/gestion-eventos",
-      "demo": "",
-      "image": "",
-      "featured": true,
-      "year": 2025
-    },
-    {
-      "id": 2,
-      "title": "Sistema de Gestión para Taller Mecánico",
-      "description": "Proyecto final de DAM. Aplicación de escritorio Java + Swing + MySQL para gestión de clientes, vehículos, reparaciones y facturación. Arquitectura multicapa con JDBC.",
-      "tech": ["Java", "Swing", "MySQL", "JDBC"],
-      "github": "https://github.com/albertoarenaldev/taller-mecanico",
-      "demo": "",
-      "image": "",
-      "featured": false,
-      "year": 2025
-    },
-    {
-      "id": 3,
       "title": "Auth Service — JWT con rotación de refresh tokens",
-      "description": "Microservicio de autenticación con JWT, refresh tokens rotativos con detección de reuso y CI en verde (44 tests).",
-      "tech": ["Java 21", "Spring Boot", "Spring Security", "JPA", "JJWT", "H2", "MySQL", "JUnit 5", "Mockito", "GitHub Actions"],
+      "description": "Microservicio de autenticación stateless con Spring Boot 3, Java 21 y Spring Security. JWT con refresh tokens rotativos y detección de reuso, verificación de email, recuperación de contraseña, rate limiting con Bucket4j, validación de fortaleza de contraseñas con zxcvbn4j, auditoría de accesos y 95% de cobertura de tests. Clean Architecture, CI/CD con GitHub Actions y despliegue Docker multi-stage.",
+      "tech": ["Java 21", "Spring Boot 3", "Spring Security", "JPA", "JJWT", "Bucket4j", "H2", "MySQL", "Docker", "JUnit 5", "Mockito", "GitHub Actions"],
       "github": "https://github.com/albertoarenaldev/auth-service",
       "demo": "",
       "image": "",
       "featured": true,
       "year": 2026
+    },
+    {
+      "id": 2,
+      "title": "Aplicación Web — Gestión de Eventos (Spring Boot + Angular)",
+      "description": "Proyecto final del Bootcamp CIC 2025. Aplicación fullstack con backend Spring Boot 3 (API REST, CRUD de eventos y tipos, validaciones, manejo de errores personalizado, JPA + H2/PostgreSQL) y frontend Angular 18 con TypeScript. Monorepo con Docker multi-stage y pipeline CI/CD con Jenkins + SonarQube + JaCoCo.",
+      "tech": ["Java", "Spring Boot 3", "JPA", "H2", "PostgreSQL", "Angular 18", "TypeScript", "Docker", "Jenkins", "SonarQube", "JUnit 5", "Mockito"],
+      "github": "https://github.com/albertoarenaldev/gestion-eventos",
+      "demo": "",
+      "image": "",
+      "featured": true,
+      "year": 2025
     }
   ],
   "github": "albertoarenaldev",
@@ -146,9 +135,9 @@
     "name": "Alberto Arenal Fernández",
     "login": "albertoarenaldev",
     "avatar_url": "https://avatars.githubusercontent.com/u/141169185",
-    "bio": "Backend Java developer — Spring Boot, JPA, REST APIs, Docker.",
+    "bio": "Desarrollador Backend Java — Spring Boot, JPA, REST APIs, Docker.",
     "html_url": "https://github.com/albertoarenaldev",
-    "public_repos": 8,
+    "public_repos": 4,
     "followers": 4,
     "following": 2
   },
@@ -158,7 +147,7 @@
       "title": "auth-service",
       "github": "https://github.com/albertoarenaldev/auth-service",
       "stars": 2,
-      "description": "Microservicio de autenticación con JWT, refresh tokens rotativos y CI en verde.",
+      "description": "Microservicio de autenticación stateless con JWT, refresh tokens rotativos, verificación de email, rate limiting y 95% de cobertura de tests. Spring Boot 3 + Java 21.",
       "language": "Java",
       "demo": ""
     },
@@ -167,7 +156,7 @@
       "title": "dev-portfolio",
       "github": "https://github.com/albertoarenaldev/dev-portfolio",
       "stars": 1,
-      "description": "Portfolio personal — Vite + React, animado, con sección GitHub en vivo.",
+      "description": "Portfolio personal con Vite + React. Animaciones, terminal interactiva estilo Quake, panel de logs en vivo y datos de GitHub via API.",
       "language": "JavaScript",
       "demo": "https://albertoarenaldev.github.io/dev-portfolio/"
     },
@@ -176,34 +165,25 @@
       "title": "gestion-eventos",
       "github": "https://github.com/albertoarenaldev/gestion-eventos",
       "stars": 1,
-      "description": "API REST completa con Spring Boot, JPA, MySQL y Docker. Tests con JUnit 5 + Mockito.",
+      "description": "Fullstack Spring Boot 3 + Angular 18 para gestión de eventos. API REST con CRUD, JPA, H2/PostgreSQL, manejo de errores y CI/CD con Jenkins + SonarQube.",
       "language": "Java",
       "demo": ""
     },
     {
       "id": "fb-4",
-      "title": "taller-mecanico",
-      "github": "https://github.com/albertoarenaldev/taller-mecanico",
-      "stars": 0,
-      "description": "Aplicación de escritorio Java + Swing + MySQL para gestión de taller mecánico.",
-      "language": "Java",
-      "demo": ""
-    },
-    {
-      "id": "fb-5",
       "title": "spain-fs-simulator",
       "github": "https://github.com/albertoarenaldev/spain-fs-simulator",
       "stars": 0,
-      "description": "Simulador de sistemas físicos con NumPy y matplotlib (proyecto académico DAM).",
+      "description": "Simulador de sistemas físicos con simulación de fluidos, colisiones y campos gravitatorios usando NumPy y matplotlib (proyecto académico DAM).",
       "language": "Python",
       "demo": ""
     },
     {
-      "id": "fb-6",
+      "id": "fb-5",
       "title": "api-rest-spring-template",
       "github": "https://github.com/albertoarenaldev/api-rest-spring-template",
       "stars": 0,
-      "description": "Template de API REST con Spring Boot 3 + JPA + Docker + GitHub Actions.",
+      "description": "Template completo de API REST con Spring Boot 3, JPA, H2/MySQL, Docker, tests con JUnit 5 + Mockito y CI con GitHub Actions.",
       "language": "Java",
       "demo": ""
     }
