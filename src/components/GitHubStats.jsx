@@ -8,15 +8,17 @@ import {
 } from '../api/github';
 import { getCached, setCached } from '../hooks/useGitHubCache';
 import { useReveal } from '../hooks/useReveal';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 const CACHE_KEY = 'github:profile';
 
-export default function GitHubStats({ username }) {
+export default function GitHubStats({ username, fallbackProfile, fallbackRepos }) {
   const ref = useReveal();
   const [profile, setProfile] = useState(null);
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const { addLog } = useLiveLogs();
 
   useEffect(() => {
     let cancelled = false;
@@ -45,8 +47,13 @@ export default function GitHubStats({ username }) {
         setProfile(p);
         setRepos(topRepos);
         setCached(`${CACHE_KEY}:${username}`, { profile: p, repos: topRepos });
+        addLog({ level: 'SUCCESS', message: `GitHub API: fetched @${username} profile + ${topRepos.length} repos` });
       } catch {
-        if (!cancelled) setFailed(true);
+        if (!cancelled) {
+          if (fallbackProfile) setProfile(fallbackProfile);
+          if (fallbackRepos && fallbackRepos.length) setRepos(fallbackRepos);
+          addLog({ level: 'WARN', message: `GitHub API unavailable — serving cached fallback data` });
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -68,7 +75,7 @@ export default function GitHubStats({ username }) {
 
         <div className="github-grid">
           {/* Profile card */}
-          <div className="github-profile glass">
+          <div className="github-profile surface-elevated">
             <div className="github-profile-head">
               {profile && (
                 <img
@@ -122,12 +129,12 @@ export default function GitHubStats({ username }) {
             </p>
 
             {repos.length === 0 && !loading && (
-              <p className="empty-state glass">No se encontraron repositorios.</p>
+              <p className="empty-state surface-elevated">No se encontraron repositorios.</p>
             )}
 
             <ul className="github-repos-list">
               {repos.map((r) => (
-                <li key={r.id} className="github-repo glass">
+                <li key={r.id} className="github-repo surface-elevated">
                   <header>
                     <a
                       href={r.github}

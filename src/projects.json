@@ -141,5 +141,71 @@
       "year": 2026
     }
   ],
-  "github": "albertoarenaldev"
+  "github": "albertoarenaldev",
+  "githubProfileFallback": {
+    "name": "Alberto Arenal Fernández",
+    "login": "albertoarenaldev",
+    "avatar_url": "https://avatars.githubusercontent.com/u/141169185",
+    "bio": "Backend Java developer — Spring Boot, JPA, REST APIs, Docker.",
+    "html_url": "https://github.com/albertoarenaldev",
+    "public_repos": 8,
+    "followers": 4,
+    "following": 2
+  },
+  "githubTopRepos": [
+    {
+      "id": "fb-1",
+      "title": "auth-service",
+      "github": "https://github.com/albertoarenaldev/auth-service",
+      "stars": 2,
+      "description": "Microservicio de autenticación con JWT, refresh tokens rotativos y CI en verde.",
+      "language": "Java",
+      "demo": ""
+    },
+    {
+      "id": "fb-2",
+      "title": "dev-portfolio",
+      "github": "https://github.com/albertoarenaldev/dev-portfolio",
+      "stars": 1,
+      "description": "Portfolio personal — Vite + React, animado, con sección GitHub en vivo.",
+      "language": "JavaScript",
+      "demo": "https://albertoarenaldev.github.io/dev-portfolio/"
+    },
+    {
+      "id": "fb-3",
+      "title": "gestion-eventos",
+      "github": "https://github.com/albertoarenaldev/gestion-eventos",
+      "stars": 1,
+      "description": "API REST completa con Spring Boot, JPA, MySQL y Docker. Tests con JUnit 5 + Mockito.",
+      "language": "Java",
+      "demo": ""
+    },
+    {
+      "id": "fb-4",
+      "title": "taller-mecanico",
+      "github": "https://github.com/albertoarenaldev/taller-mecanico",
+      "stars": 0,
+      "description": "Aplicación de escritorio Java + Swing + MySQL para gestión de taller mecánico.",
+      "language": "Java",
+      "demo": ""
+    },
+    {
+      "id": "fb-5",
+      "title": "spain-fs-simulator",
+      "github": "https://github.com/albertoarenaldev/spain-fs-simulator",
+      "stars": 0,
+      "description": "Simulador de sistemas físicos con NumPy y matplotlib (proyecto académico DAM).",
+      "language": "Python",
+      "demo": ""
+    },
+    {
+      "id": "fb-6",
+      "title": "api-rest-spring-template",
+      "github": "https://github.com/albertoarenaldev/api-rest-spring-template",
+      "stars": 0,
+      "description": "Template de API REST con Spring Boot 3 + JPA + Docker + GitHub Actions.",
+      "language": "Java",
+      "demo": ""
+    }
+  ]
 }

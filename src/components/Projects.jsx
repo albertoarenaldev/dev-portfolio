@@ -24,7 +24,7 @@ export default function Projects({ projects = [] }) {
       <div className="container">
         <header className="section-header">
           <p className="eyebrow">Trabajo reciente</p>
-          <h2 className="display">Proyectos en los que he puesto cariño.</h2>
+          <h2 className="display">Proyectos que he desarrollado.</h2>
         </header>
 
         <div className="filter-bar" role="toolbar" aria-label="Filtrar por tecnología">

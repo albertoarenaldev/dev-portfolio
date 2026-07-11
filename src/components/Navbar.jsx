@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
+import { useEffect, useRef, useState } from 'react';
+import { FiSun, FiMoon, FiMenu, FiX, FiTerminal } from 'react-icons/fi';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import { fetchUserProfile } from '../api/github';
 import { getCached, setCached } from '../hooks/useGitHubCache';
+import { useLiveLogs } from '../hooks/useLiveLogs';
 
 const PROFILE_CACHE_KEY = 'github:profile';
 
@@ -15,14 +16,21 @@ const SECTIONS = [
   { id: 'contact',    label: 'Contacto' },
 ];
 
-export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
+export default function Navbar({ name, theme, onToggleTheme, githubUsername, onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const activeId = useScrollSpy(SECTIONS.map((s) => s.id));
+  const { addLog } = useLiveLogs();
+  const prevActiveRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 32);
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docH > 0 ? (window.scrollY / docH) * 100 : 0);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -30,6 +38,15 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
 
   // Close mobile menu after nav
   useEffect(() => { setOpen(false); }, [activeId]);
+
+  // Log section changes as API-style navigation events
+  useEffect(() => {
+    if (activeId && activeId !== prevActiveRef.current) {
+      prevActiveRef.current = activeId;
+      const label = SECTIONS.find((s) => s.id === activeId)?.label || activeId;
+      addLog({ level: 'INFO', message: `GET /api/v1/${activeId} → 200 OK ("${label}")` });
+    }
+  }, [activeId, addLog]);
 
   // Lazy-fetch GitHub avatar once, shared via cache with GitHubStats section.
   // Falls back silently to the gradient square on failure/offline.
@@ -56,6 +73,15 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
 
   return (
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
+      <div
+        className="navbar-progress"
+        role="progressbar"
+        aria-valuenow={Math.round(scrollProgress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Progreso de lectura"
+        style={{ width: `${scrollProgress}%` }}
+      />
       <div className="navbar-inner container">
         <a href="#hero" className="navbar-brand" aria-label="Inicio">
           {avatarUrl ? (
@@ -84,6 +110,16 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername }) {
         </nav>
 
         <div className="navbar-actions">
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={onOpenTerminal}
+            aria-label="Abrir terminal"
+            title="Terminal (Ctrl+~)"
+          >
+            <FiTerminal />
+          </button>
+
           <button
             type="button"
             className="icon-btn"

@@ -11,7 +11,7 @@ export default function Experience({ items = [] }) {
       <div className="container">
         <header className="section-header">
           <p className="eyebrow">Trayectoria</p>
-          <h2 className="display">Dónde he trabajado.</h2>
+          <h2 className="display">Mi formación tecnológica.</h2>
         </header>
 
         <ol className="timeline">
