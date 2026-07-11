@@ -12,7 +12,7 @@ export async function fetchGitHubRepos(username) {
       description: repo.description || 'Sin descripción',
       tech: [repo.language].filter(Boolean),
       github: repo.html_url,
-      demo: repo.homepage || '',
+      demo: (repo.homepage && !repo.homepage.includes('dev-portfolio')) ? repo.homepage : '',
       stars: repo.stargazers_count,
       forks: repo.forks_count,
       updated: repo.updated_at,
