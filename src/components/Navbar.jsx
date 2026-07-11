@@ -20,12 +20,17 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername, onO
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const activeId = useScrollSpy(SECTIONS.map((s) => s.id));
   const { addLog } = useLiveLogs();
   const prevActiveRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 32);
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docH > 0 ? (window.scrollY / docH) * 100 : 0);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -68,6 +73,15 @@ export default function Navbar({ name, theme, onToggleTheme, githubUsername, onO
 
   return (
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
+      <div
+        className="navbar-progress"
+        role="progressbar"
+        aria-valuenow={Math.round(scrollProgress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Progreso de lectura"
+        style={{ width: `${scrollProgress}%` }}
+      />
       <div className="navbar-inner container">
         <a href="#hero" className="navbar-brand" aria-label="Inicio">
           {avatarUrl ? (

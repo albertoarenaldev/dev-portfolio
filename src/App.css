@@ -540,6 +540,19 @@
   border-bottom: 1px solid var(--border);
 }
 
+.navbar-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.15s linear;
+  z-index: 10;
+  box-shadow: 0 0 8px var(--accent);
+  opacity: 0.85;
+}
+
 .navbar-inner {
   display: flex;
   align-items: center;
