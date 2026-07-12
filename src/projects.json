@@ -19,7 +19,7 @@
   "availability": "Disponible inmediatamente · Movilidad geográfica completa",
   "social": {
     "github": "https://github.com/albertoarenaldev",
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/albertoarenaldev",
     "email": "alberto.arenal.dev@gmail.com",
     "phone": null,
     "website": null
@@ -166,24 +166,6 @@
       "github": "https://github.com/albertoarenaldev/gestion-eventos",
       "stars": 1,
       "description": "Fullstack Spring Boot 3 + Angular 18 para gestión de eventos. API REST con CRUD, JPA, H2/PostgreSQL, manejo de errores y CI/CD con Jenkins + SonarQube.",
-      "language": "Java",
-      "demo": ""
-    },
-    {
-      "id": "fb-4",
-      "title": "spain-fs-simulator",
-      "github": "https://github.com/albertoarenaldev/spain-fs-simulator",
-      "stars": 0,
-      "description": "Simulador de sistemas físicos con simulación de fluidos, colisiones y campos gravitatorios usando NumPy y matplotlib (proyecto académico DAM).",
-      "language": "Python",
-      "demo": ""
-    },
-    {
-      "id": "fb-5",
-      "title": "api-rest-spring-template",
-      "github": "https://github.com/albertoarenaldev/api-rest-spring-template",
-      "stars": 0,
-      "description": "Template completo de API REST con Spring Boot 3, JPA, H2/MySQL, Docker, tests con JUnit 5 + Mockito y CI con GitHub Actions.",
       "language": "Java",
       "demo": ""
     }
